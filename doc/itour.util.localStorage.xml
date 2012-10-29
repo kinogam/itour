@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="layout.xslt"?>
+<document>
+    <title>itour.util.localStorage</title>
+    <desc>Html5的localStorage的兼容工具，只在当前域名存储</desc>
+
+    
+    <section>
+        <title>itour.util.localStorage.setItem(key, value)</title>
+        <desc>存储数据</desc>
+        <api>
+            <name>key</name>
+            <type>String</type>
+            <desc>对应着存储的数据的字符串</desc>
+        </api>
+        <api>
+            <name>value</name>
+            <type>String</type>
+            <desc>存储的数据，字符串格式</desc>
+        </api>
+    </section>
+
+    <section>
+        <title>itour.util.localStorage.getItem(key)</title>
+        <desc>根据key来读取数据</desc>
+        <api>
+            <name>key</name>
+            <type>String</type>
+            <desc>对应着存储的数据的字符串</desc>
+        </api>
+    </section>
+
+    <section>
+        <title>itour.util.localStorage.removeItem(key)</title>
+        <desc>根据key来删除数据</desc>
+        <api>
+            <name>key</name>
+            <type>String</type>
+            <desc>对应着存储的数据的字符串</desc>
+        </api>
+    </section>
+
+    <section>
+        <title>itour.util.localStorage.clear()</title>
+        <desc>清空所有当前域名下的本地数据</desc>
+    </section>
+        
+</document>

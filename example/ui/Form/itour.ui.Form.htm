@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    
+    <link href="../../../../../themes/styles/default/module.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../../themes/styles/default/citySelector.css" rel="stylesheet"
+        type="text/css" />
+    
+    <script src="../../../lib/util/itour.util.template.js" type="text/javascript"></script>
+    <script src="../../../jquery.js" type="text/javascript"></script>
+
+    <link href="../../../../../Images/jquery.datepicker.css" rel="stylesheet" type="text/css" />
+    <script src="../../../lib/ui/itour.ui.datepicker.js" type="text/javascript"></script>    
+    <script src="../../../../JQueryAddIn/DatePicker/jquery.datepicker-zh-CN.js" type="text/javascript"></script>
+
+    <script src="../../../../common.js" type="text/javascript"></script>
+    <script src="../../../../JQueryAddIn/jquery.autocomplete.js" type="text/javascript"></script>
+    <script src="../../../../JQueryAddIn/jquery.bgiframe.js" type="text/javascript"></script>
+
+        <script src="../../../../flightCitys.js" type="text/javascript"></script>
+    <script src="../../../../iflightCitys.js" type="text/javascript"></script>
+    <script src="../../../../iflightAbroadCitys.js" type="text/javascript"></script>
+    <script src="../../../../iFlightCitySelector.js" type="text/javascript"></script>
+
+    
+    
+    <script src="../../../lib/ui/itour.ui.Form.js" type="text/javascript"></script>
+    
+
+    <script>
+        var Form = itour.ui.Form;
+
+        Form.addItemType({
+            type: 'citySelector',
+            extend: 'txt',
+            after: function () {
+                this.$el.Watermark('中文/拼音').autocomplete().citySelector();
+            },
+            getView: function () {
+                return "<input name='@name' id='form-@name-@new Date().getTime()' type='text' value='@value' @attrString />"
+            },
+            getValue: function () {
+                var $el = this.form.get(this.name).$el;
+                if ($el.val() == '中文/拼音')
+                    return "";
+                return $el.val();
+            }
+        }).addItemType({
+            type: 'datapicker',
+            extend: 'txt',
+            after: function () {
+                this.$el.datepicker({ numberOfMonths: 2, showAnim: '', prevText: "", nextText: "", minDate: new Date(), constrainInput: true });
+                this.$el.attr("readonly", true);
+            }
+        });
+
+        $(function () {
+            var f = new Form({
+                render: $("#test")[0],
+                items: [{
+                    name: "flightType",
+                    label: "航程类型：",
+                    type: "list",
+                    data: [{ value: 0, text: "单程" }, { value: 1, text: "往返"}],
+                    events: {
+                        change: function (e, item, form) {
+                            if(this.value == '0')
+                            {
+                                form.get("returnDate").$el.parent().parent().hide();
+                            }
+                            else{
+                                form.get("returnDate").$el.parent().parent().show();
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'hide1',
+                    value: 'hidevalue'
+                },
+                {
+                    name: "startCity",
+                    label: "出发城市：",
+                    type: "citySelector"
+                },
+                {
+                    name: "dstCity",
+                    label: "到达城市：",
+                    type: "citySelector"
+                },
+                {
+                    name: "startDate",
+                    label: "出发日期：",
+                    type: "datapicker"
+                }
+                ,
+                {
+                    name: "returnDate",
+                    label: "返回日期：",
+                    type: "datapicker",
+                    attr:{
+                        display: "none"
+                    }
+                }
+                ]
+            });
+            f.bind();
+
+            $("#check").on("click", function () {
+                f.setValues({
+                    'hide1': 'new hide value'
+                });
+                var param = f.getParams();
+
+
+                $("#result").html(JSON.stringify(param));
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <div id="test">
+    </div>
+    <input type="button" id="check" value="check" />
+    <div id="result"></div>
+</body>
+</html>

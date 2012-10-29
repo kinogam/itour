@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../../themes/styles/default/basic.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../themes/styles/default/reset.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../themes/styles/default/module.css" rel="stylesheet" type="text/css" />
+    <style>
+        #itour-tip .default .tip-body
+        {
+            
+            border:1px solid #8F8F8F;
+            background:#E8E8E8;
+            padding:3px;
+            -webkit-box-shadow:-1px 1px 4px #666;
+            -moz-box-shadow:-1px 1px 4px #999;
+            box-shadow:-1px 1px 4px #666;
+        }
+        .tip-content
+        {
+            background:#fff;
+        }
+        
+        
+        .itour-tip-v-rd .tip-wrapper,.itour-tip-v-ld .tip-wrapper
+        {
+            padding-top:5px;            
+        }
+        .itour-tip-v-ru .tip-wrapper,.itour-tip-v-lu .tip-wrapper
+        {
+            padding-bottom:5px;            
+        }
+        
+        #itour-tip .default .itour-tip-arrow
+        {
+            display:block;
+            width:14px;
+            height:9px;
+            overflow:hidden;
+            background-image:url(tip_default_bg.png);
+            background-repeat:no-repeat;
+        };
+        
+        #itour-tip .blue .itour-tip-arrow
+        {
+            display:block;
+            width:14px;
+            height:9px;
+            overflow:hidden;
+            background-image:url(tip_blue_bg.png);
+            background-repeat:no-repeat;
+        };
+        
+        .itour-tip-v-ru .itour-tip-arrow,.itour-tip-v-lu .itour-tip-arrow
+        {
+            background-position:0 -1px;
+        }
+        .itour-tip-v-rd .itour-tip-arrow,.itour-tip-v-ld .itour-tip-arrow
+        {
+            background-position:0 -10px;
+        }
+    </style>
+    <script src="../../jquery.js" type="text/javascript"></script>
+    <script src="../../lib/util/itour.util.template.js" type="text/javascript"></script>
+    <script src="../../lib/ui/itour.ui.tip.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            itour.ui.tip._ajaxHandle = function (action, param, callback) {
+                setTimeout(function () {
+                    callback({ title: param.title, contact: param.contact });
+                }, 1500);
+            };
+            //itour.ui.tip({ el: "#test", view: $("#temp1").html(), action: "noaction", position: { y: 20} });
+            itour.ui.tip({ el: "#a1", view: $("#temp1").html(),
+                data: { title: "改签退规定", contact: "退改签以航空公司最新规定为准，可咨询客服电话4000-198-198" },
+                position: { x: -30, y: 10 }
+            });
+
+            itour.ui.tip({ el: ".a2", view: $("#temp1").html(),
+                handle: function () {
+                    this.action = $(this.el).attr('method');
+                    this.param = {
+                        title: $(this.el).attr('prov') + ' ' + $(this.el).attr('city'),
+                        contact: $(this.el).attr('address')
+                    };
+                }
+
+            });
+
+            itour.ui.tip({
+                el: "#pic",
+                view: $("#temp1").html(),
+                data: { title: "this is picture", contact: "no contact" }
+            });
+
+            //含有箭头的tip
+            itour.ui.tip({
+                el: "#hasarrow",
+                view: $("#temp3").html(),
+                position: { x: -50, y: 20 },
+                layout: 'top',
+                show: 'slow',
+                data: { content: "arrow !" }
+            });
+
+            //含有箭头的tip
+
+            itour.ui.tip({
+                el: "#hasarrow2",
+                view: $("#temp3").html(),
+                data: { content: "arrow !arrow !" }
+            });
+
+            itour.ui.tip({
+                el: "#hasarrow3",
+                view: $("#temp3").html(),
+                maxwidth:300,
+                data: { content: "宽度ar row arrow arrow arrow arrow arrow !arrow arrow arrow arrow arrow arrow arrow !arrow arrow arrow arrow arrow arrow arrow !arrow arrow arrow arrow arrow arrow arrow !" }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- <p style="padding:200px 0 0 200px;">
+        <a href="#" id="test">xxxx</a>
+    </p>-->
+    <p style="padding: 100px 0 0 400px;">
+        <a href="#" id="a1">xxxx</a></p>
+    <p style="padding: 100px 0 0 500px;">
+        <a href="#" class="a2" method="GetAircraft" prov="广东省" city="广州市" address="测试地址！">广东</a></p>
+        <select style="position: absolute; top: 120px; left: 500px;"></select>
+    <p style="padding: 100px 0 0 200px;">
+        <a href="#" class="a2" method="GetAircraft" prov="火星省" city="空洞市" address="未知地址！">火星</a></p>
+    <p style="padding: 0 0 0 400px;">
+        <a href="#" id="hasarrow">has arrow</a>
+    </p>
+    <p style="padding: 0 0 0 600px;">
+        <a href="#" id="hasarrow2">has arrow2</a>
+    </p>
+    <p style="padding: 0 0 0 600px;">
+        <a href="#" id="hasarrow3">has arrow3</a>
+    </p>
+    <div style="position: absolute; top: 500px; left: 180px; border: 1px solid #ccc;"
+        id="pic">
+        <img src="pic.jpg" style="width: 100px; height: 100px" />
+    </div>
+    <script type="text/template" id="temp1">
+        <div class="tips_box_7" style="width:300px;">
+            <div class="data_table">
+                <table>
+                    <thead><tr><th>@data.title</th></tr></thead>
+                    <tbody><tr><td>@data.contact</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="temp3">
+        <div class="default">        
+            <div class="itour-tip-arrow">
+            </div>
+            <div class="tip-wrapper">
+                <div class="tip-body">
+                    <div class="tip-content">
+                        @data.content
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+  
+</body>
+</html>

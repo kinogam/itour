@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../../jquery-1.4.2.min.js" type="text/javascript"></script>
+    <link href="../../../../Images/jquery.datepicker.css" rel="stylesheet" type="text/css" />
+    <script src="../../lib/ui/itour.ui.datepicker.js" type="text/javascript"></script>
+    <script src="../../../JQueryAddIn/DatePicker/jquery.datepicker-zh-CN.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            itour.ui.datepicker("input", { numberOfMonths: 2, showAnim: '', prevText: "", nextText: "", minDate: new Date(), constrainInput: true });
+            itour.ui.datepicker("input", "option", "minDate", new Date());
+            //itour.ui.datepicker($("input"));
+        });
+    </script>
+</head>
+<body>
+    <input type="text" />
+</body>
+</html>

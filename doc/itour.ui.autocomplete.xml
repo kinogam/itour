@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<?xml-stylesheet type="text/xsl" href="layout.xslt"?>
+
+
+<document>
+    <title>itour.ui.autocomplete</title>
+    <desc>自动完成提示层，支持本地数据和ajax请求数据。使用时需引入jquery.js和itour.ui.template.js</desc>
+
+    <section>
+        <title>基本调用</title>
+        <api>
+            <code>
+                <![CDATA[        
+                //local data
+                var dom = document.getElementById("test");
+                itour.ui.autocomplete({
+                    el: dom,
+                    data: [{ text: "hello", value: 1 }, { text: "world", value: 2}]
+                });
+                
+                //ajax autocomplete
+                itour.ui.autocomplete({
+                    el: dom,
+                    data: "hello.aspx"
+                });
+                ]]>
+            </code>
+        </api>
+    </section>
+    
+    
+    <section>
+        <title>itour.ui.autocomplete(options)</title>
+        <api>
+            <name>options</name>
+            <type>Json</type>
+            <desc>自动完成工具配置属性</desc>
+        </api>
+    </section>
+
+    <section>
+        <title>options参数说明</title>
+        <api>
+            <name>el</name>
+            <type>DOM/String</type>
+            <desc>dom对象或者css3 选择字符串</desc>
+        </api>
+
+        <api>
+            <name>data</name>
+            <type>Array/String</type>
+            <desc>当该值设置为数组对象时，使用本地数据操作，使用字符串时，该值表示ajax请求的数据接口名称</desc>
+        </api>
+
+        <api>
+            <name>view</name>
+            <type>String/Function</type>
+            <desc>itour.util.template模板字符串或函数</desc>
+        </api>
+
+        <api>
+            <name>position</name>
+            <type>Json</type>
+            <desc>根据层弹出位置，调整相对于目标元素的距离</desc>
+            <code>
+                itour.ui.autocomplete({ el: dom, data: data1, position: { x: 10, y: 10} });
+            </code>
+        </api>
+
+        <api>
+            <name>fields</name>
+            <type>Array</type>
+            <desc>指定数据匹配的列</desc>
+            <code>
+                <![CDATA[  
+                itour.ui.autocomplete({
+                    el: dom,
+                    data: [
+                        { a: 'say', b: 'hello' },
+                        { a: 'and', b: 'world' },
+                        { a: 'again', b: '!' }
+                    ],
+                    fields: ['a', 'b']
+                });
+                ]]>
+            </code>
+        </api>
+        
+        <!--<api>
+            <name>textField</name>
+            <type>String/Number</type>
+            <desc>指定数据的列，在使用模板的时候自动转换为text字段</desc>
+        </api>-->
+
+        <api>
+            <name>getAjaxData</name>
+            <type>Function</type>
+            <returns>
+                <type>Aarray</type>
+                <desc>返回自定义的数组</desc>
+            </returns>
+            <desc>ajax模式的情况下，获取数据之后的数据处理</desc>
+            <code>
+                <![CDATA[
+                itour.ui.autocomplete({
+                    el: dom2,
+                    data: "hello.aspx",
+                    getAjaxData: function (result) {
+                        return result.rows;
+                    },
+                    dataField: 'a',
+                    textField: 'b'
+                });
+                ]]>
+            </code>
+        </api>
+
+        <api>
+            <name>limit</name>
+            <type>Number</type>
+            <desc>限制显示的条数，不设置则无限制</desc>
+        </api>
+
+        <api>
+            <name>emptyItem</name>
+            <type>Json</type>
+            <desc>设置一个加在列表最前面的空白元素</desc>
+            <code>
+                <![CDATA[
+                itour.ui.autocomplete({
+                    el: dom2,
+                    data: data1,
+                    emptyItem: { text: '全部', value: '' }
+                });
+                ]]>
+            </code>
+        </api>
+
+        <api>
+            <name>getParam</name>
+            <type>Function</type>
+            <desc>获取ajax请求时的变量</desc>
+            <code>
+                <![CDATA[
+                itour.ui.autocomplete({
+                    el: dom2,
+                    data: "hello.aspx",
+                    getParam: function () {
+                        return { key:  this.value} //this表示当前dom对象
+                    }
+                });
+                ]]>
+            </code>
+        </api>
+
+        <api>
+            <name>select</name>
+            <type>Function</type>
+            <desc>设置值时触发的回调函数</desc>
+            <code>
+                <![CDATA[
+                itour.ui.autocomplete({
+                    el: dom1,
+                    data: data1,
+                    select: function (item) {
+                        //item参数含有 text 和 value 2个属性
+                        //equal(item.value, '2', 'press enter trigger select callback');
+                        //equal(item.text, 'world', 'press enter trigger select callback');
+                    }
+                });
+                ]]>
+            </code>
+        </api>
+
+        <api>
+            <name>fuzzy</name>
+            <type>Boolean</type>
+            <desc>是否启用模糊匹配，原本匹配是从左到右，开启该项之后，只要内容含有输入字符串就可以匹配。</desc>
+        </api>
+        
+    </section>
+
+
+    <section>
+        <title>itour.ui.autocomplete.defaultShowView</title>
+        <desc>默认显示模板</desc>
+        <api>
+            <desc>设置模板时列表项需要包含class='list-item' 和index='@i'</desc>
+            <code>
+                <![CDATA[        
+                "<ul>@for(var i=0;i<data.length;i++){<li class='list-item' index='@i'>@data[i].text</li>}</ul>"
+                ]]>
+            </code>
+        </api>
+    </section>
+
+    <section>
+        <title>itour.ui.autocomplete.defaultEmptyView</title>
+        <desc>无相关数据的时候，使用该模板</desc>
+        <api>
+            <code>
+                <![CDATA[
+                    itour.ui.autocomplete.defaultEmptyView = "sorry, nothing match";
+                    itour.ui.autocomplete({
+                        el: dom2,
+                        data: data1
+                    });
+                ]]>
+            </code>
+        </api>
+    </section>
+        
+</document>

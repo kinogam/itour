@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="layout.xslt"?>
+<document>
+    <title>itour.ui.template</title>
+    <desc>一个容易使用的javascrpt模板工具</desc>
+
+
+    <section>
+        <title>基本调用</title>
+        <api>
+            <code>
+                <![CDATA[
+                    var str = itour.ui.template("Hey, @name!", { name: 'kino' });
+                    //结果: "Hey, kino!"
+                ]]>
+            </code>
+        </api>
+    </section>
+    
+    <section>
+        <title>itour.ui.template(templateStr[, data])</title>
+        <api>
+            <name>template</name>
+            <type>String/Function</type>
+            <desc>模板字符串或模板函数</desc>
+        </api>
+        <api>
+            <name>data</name>
+            <type>Json/Array</type>
+            <desc>模板数据</desc>
+        </api>
+    </section>
+
+    <section>
+        <title>使用说明</title>
+        <api>
+            <name>itour.ui.template(templateStr, data)</name>
+            <returns>
+                <type>String</type>
+                <desc>转换后的文本</desc>
+            </returns>
+            <desc>当输入2个参数时，则返回转换后的文本</desc>
+            <code>
+                <![CDATA[
+                    var str = itour.ui.template("Hey, @name!", { name: 'kino' });
+                    //结果: "Hey, kino!"
+                ]]>
+            </code>
+        </api>
+
+        <api>
+            <name>itour.ui.template(templateStr)</name>
+            <returns>
+                <type>Function</type>
+                <desc>模板函数</desc>
+            </returns>
+            <desc>当输入1个参数时，则返回编译后生成的模板函数</desc>
+            <code>
+                <![CDATA[
+                    var tf = itour.ui.template("hello!@name");
+                    var str = itour.ui.template(tf, { name: 'kino' });
+                    //result: "hello!kino"
+                    
+                    //频繁的使用模板，可以先转成模板函数再用
+                ]]>
+            </code>
+        </api>
+
+
+
+
+
+
+
+    </section>
+
+    <section>
+        <title>itour.ui.template.use(symbol)</title>
+        <api>
+            <name>symbol</name>
+            <type>String</type>
+            <desc>自定义符代替@，假如在和@符号有冲突的框架下使用，可以考虑把@转换成自己需要的符号</desc>
+            <code>
+                <![CDATA[
+                    itour.ui.template.use("&");
+                    var str = itour.ui.template("&name@&email", { name: "kinogam", email: "gmail.com" });
+                    //"kinogam@gmail.com"
+
+                    itour.ui.template.use("$");
+                    var str = kino.razor("$name@$email", { name: "kinogam", email: "gmail.com" });
+                    //"kinogam@gmail.com"
+                ]]>
+            </code>
+        </api>
+    </section>
+
+
+    <section>
+        <title>模板字符串格式</title>
+        <api>
+            <name>模板块</name>
+            <desc>定义一个js处理的块</desc>
+            <code>
+                <![CDATA[
+                    var templateStr = "@{var fname='kino';}this is @fname @lname";
+                    var str = itour.ui.template(templateStr, {lname:'jack'});
+                    //result: "this is kino jack"
+                ]]>
+            </code>
+        </api>
+        
+        <api>
+            <name>条件判断</name>
+            <desc>处理if else 逻辑</desc>
+            <code>
+                <![CDATA[
+                    var templateStr = "@if(1==0){<span>if you see this word,your test is failed</span>}else{nothing}";
+                    var str = itour.ui.template(templateStr, {});
+                    //result: "nothing"
+                ]]>
+            </code>
+        </api>
+
+
+        <api>
+            <name>循环处理</name>
+            <desc>使用for while 循环数据</desc>
+            <code>
+                <![CDATA[
+                    var templateStr = "@for(var i = 0; i < 3; i++){<span>@i</span>}";
+                    var str = itour.ui.template(templateStr, {});
+                    //result: "<span>0</span><span>1</span><span>2</span>"
+
+                    templateStr = "@{var i = 3;}@while(i--){<span>@i</span>}";
+                    str = itour.ui.template(templateStr, {});
+                    //result: "<span>2</span><span>1</span><span>0</span>"
+                ]]>
+            </code>
+        </api>
+
+        <api>
+            <name>@Html.escape(string)</name>
+            <desc>将字符串转义成html字符</desc>
+            <code>
+                <![CDATA[
+                    var templateStr = "<input yyy='@Html.escape(test)' xxx=\"@Html.escape(otherAttr)\" />";
+                    var str = itour.ui.template(templateStr, { test: "kino's test", otherAttr: "\"one more test\"" });
+                    //result: "<input yyy='kino&#x27;s test' xxx=\"&quot;one more test&quot;\" />"
+                ]]>
+            </code>
+        </api>
+
+        <api>
+            <name>@@，@}</name>
+            <desc>将@和}当字符串输出的时候，需要在前面再多加一个@来转义</desc>
+            <code>
+                <![CDATA[
+                    var templateStr = "{@name@@gmail.com@}";
+                    var str = itour.ui.template(templateStr, { name: 'kino' });
+                    //result: '{kino@gmail.com}'
+                ]]>
+            </code>
+        </api>
+    
+    </section>
+    
+</document>

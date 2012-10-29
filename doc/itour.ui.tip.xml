@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="layout.xslt"?>
+<document>
+    <title>itour.ui.tip(option)</title>
+    <desc>itour.ui.tip控件支持普通的标签和图片热点提示，并可自动调节位置，使用时需引入jquery.js和itour.ui.template.js。兼容ie6-10，firefox，chrome，safari，opera</desc>
+    
+    <section>
+        <title>基本调用</title>
+        <api>
+            <code>
+                <![CDATA[                
+                itour.ui.tip({
+                    el: document.getElementById("test"),
+                    view: "hello tip" 
+                }); 
+                
+                itour.ui.tip({
+                    el: '#test', 
+                    view: "hello tip" 
+                }); 
+                ]]>
+            </code>
+        </api>
+    </section>
+
+    <section>
+        <title>属性</title>
+        <api>
+            <name>el</name>
+            <type>DOM/String</type>
+            <desc>使用dom或者css3选择器来设置事件触发元素</desc>
+        </api>
+        <api>
+            <name>view</name>
+            <type>String/Function</type>
+            <desc>itour.util.template显示模板字符串或模板函数，如果data设置为{a:'x', b:'y},这模板需要用@data.a 和@data.b来引用</desc>
+        </api>
+
+        <api>
+            <name>loadingView</name>
+            <type>String/Function</type>
+            <desc>当tip进行ajax数据获取的时候显示该视图</desc>
+        </api>
+        
+        <api>
+            <name>event</name>
+            <type>String/Json</type>
+            <desc>
+                设置触发事件的类型，可以设置hover（鼠标划过）和toggle (点击)，默认hover。
+            </desc>
+        </api>
+
+        <api>
+            <name>action</name>
+            <type>String</type>
+            <desc>
+                当tip需要从服务器获取数据时，使用该属性设置请求地址
+            </desc>
+        </api>
+
+        <api>
+            <name>param</name>
+            <type>Json</type>
+            <desc>
+                当tip需要从服务器获取数据时，使用该属性设置请求参数
+            </desc>
+        </api>
+
+        <api>
+            <name>layout</name>
+            <type>String</type>
+            <desc>
+                设置控件的默认位置，可以设置为 top 和 bottom, 默认 bottom
+            </desc>
+        </api>
+
+        <api>
+            <name>listener</name>
+            <type>DOM/String</type>
+            <desc>
+                事件监听容器，设置了监听容器的话，所有事件都只能在监听容器里触发，设置该属性可以优化性能
+            </desc>
+        </api>
+
+        <api>
+            <name>width</name>
+            <type>Number/String</type>
+            <desc>
+                设置tip宽度，可以设置'auto'让内容自动适应
+            </desc>
+        </api>
+
+        <api>
+            <name>show</name>
+            <type>Number/String</type>
+            <desc>
+                tip标签显示和隐藏的速度，可以设置显示和隐藏的毫秒数或者输入"slow", "normal", "fast"
+            </desc>
+        </api>
+        
+    </section>
+
+
+    <section>
+        <title>回调</title>
+        <api>
+            <name>handle</name>
+            <type>Function</type>
+            <desc>事件触发前的处理函数, this为当前设置对象，this.el为当前元素</desc>
+            <code>
+                <![CDATA[
+                    itour.ui.tip({
+                        el: dom,
+                        action: "someAjaxMethod",
+                        handle: function () {
+                            this.param = {
+                                firstName: $(this.el).attr('firstName'),
+                                lastName: $(this.el).attr('lastName')
+                            };
+                            this.view = "helloview";
+                            this.action = "CustomAction";
+                            this.width = 300;
+                        }
+                    });
+                ]]>
+            </code>
+        </api>
+    </section>
+</document>

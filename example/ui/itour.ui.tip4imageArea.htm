@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+       <style type="text/css">
+        
+        #itour-tip .default .tip-body
+        {
+            border:1px solid #8F8F8F;
+            background:#E8E8E8;
+            padding:3px;
+            -webkit-box-shadow:-1px 1px 4px #666;
+            -moz-box-shadow:-1px 1px 4px #999;
+            box-shadow:-1px 1px 4px #666;
+        }
+        .tip-content
+        {
+            background:#fff;
+        }
+        
+        
+        .itour-tip-v-rd .tip-wrapper,.itour-tip-v-ld .tip-wrapper
+        {
+            padding-top:5px;            
+        }
+        .itour-tip-v-ru .tip-wrapper,.itour-tip-v-lu .tip-wrapper
+        {
+            padding-bottom:5px;            
+        }
+        
+        #itour-tip .default .itour-tip-arrow
+        {
+            display:block;
+            width:14px;
+            height:9px;
+            overflow:hidden;
+            background-image:url(tip_default_bg.png);
+            background-repeat:no-repeat;
+        };
+        
+        #itour-tip .blue .itour-tip-arrow
+        {
+            display:block;
+            width:14px;
+            height:9px;
+            overflow:hidden;
+            background-image:url(tip_blue_bg.png);
+            background-repeat:no-repeat;
+        };
+        
+        .itour-tip-v-ru .itour-tip-arrow,.itour-tip-v-lu .itour-tip-arrow
+        {
+            background-position:0 -1px;
+        }
+        .itour-tip-v-rd .itour-tip-arrow,.itour-tip-v-ld .itour-tip-arrow
+        {
+            background-position:0 -10px;
+        }
+    </style>
+    <script src="../../jquery.js" type="text/javascript"></script>
+    <script src="../../lib/util/itour.util.template.js" type="text/javascript"></script>
+    <script src="../../lib/ui/itour.ui.tip.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+
+
+            $(document).click(function (e) {
+//                alert("xx");
+                                var el = e.target;
+                                console.log($(el).attr("coords"));
+            });
+
+            setInfoTip({
+                el: "area",
+                view: $("#temp-test").html(),
+                width: 200,
+                layout: "top",
+                handle: function () {
+                    this.position = {
+                        x: Number($(this.el).attr("x")),
+                        y: Number($(this.el).attr("y"))
+                    };
+                    this.data = $(this.el).attr("rel")
+                }
+            });
+        });
+
+
+
+        function setInfoTip(setting) {
+            var s = false;
+            $("body").delegate("#itour-tip", "mouseenter", function () {
+                s = true;
+            }).delegate("#itour-tip", "mouseleave", function () {
+                $("#itour-tip").hide();
+                s = false;
+            });
+
+            setting.event = {
+                show: function () {
+                    s = true;
+                    $(this.tip).show();
+                },
+                hide: function () {
+                    var that = this;
+                    setTimeout(function () {
+                        if (!s)
+                            $(that.tip).hide();
+                    }, 1000);
+                    s = false;
+                }
+            };
+
+            itour.ui.tip(setting);
+        }
+    </script>
+</head>
+<body>
+    <img src="map.jpg" usemap="#china_map" />
+
+    <map name="china_map">
+    <area class="xxx" coords="658,344,693,360" href="#hongkong" shape="rect" x="0" y="0" rel="#hongkong" />
+    <area class="xxx" coords="606,327,641,343" href="#zhuhai" shape="rect" x="0" y="0" rel="#zhuhai" />
+    <area class="xxx" coords="648,308,683,324" href="#shenzhen" shape="rect" x="0" y="0" rel="#shenzhen" />
+    <area class="xxx" coords="590,311,625,327" href="#zhongshan" shape="rect" x="0" y="0" rel="#zhongshan" />
+    <area class="xxx" coords="644,289,679,305" href="#dongguan" shape="rect" x="0" y="0" rel="#dongguan" />
+    <area class="xxx" coords="574,294,609,310" href="#foshan" shape="rect" x="0" y="0" rel="#foshan" />
+    <area class="xxx" coords="592,279,625,295" href="#guangzhou" shape="rect" x="0" y="0" rel="#guangzhou" />
+    <area class="xxx" coords="178,82,238,100" href="#wulumuqi" shape="rect" x="0" y="0" rel="#wulumuqi" />
+    <area class="xxx" coords="422,127,457,143" href="#beijing" shape="rect" x="0" y="0" rel="#beijing"/>
+    <area class="xxx" coords="491,206,526,222" href="#nanjing" shape="rect" x="0" y="0" rel="#nanjing" />
+    <area class="xxx" coords="504,225,539,241" href="#shanghai" shape="rect" x="0" y="0" rel="#shanghai" />
+    <area class="xxx" coords="441,217,476,233" href="#hefei" shape="rect" x="0" y="0" rel="#hefei" />
+    <area class="xxx" coords="364,209,399,225" href="#xian" shape="rect" x="0" y="0" rel="#xian" />
+    <area class="xxx" coords="381,247,416,263" href="#chongqing" shape="rect" x="0" y="0" rel="#chongqing" />
+    <area class="xxx" coords="434,240,469,256" href="#wuhan" shape="rect" x="0" y="0" rel="#wuhan" />
+    <area class="xxx" coords="465,265,500,281" href="#nanchang" shape="rect" x="0" y="0" rel="#nanchang" />
+    <area class="xxx" coords="508,254,543,270" href="#hangzhou" shape="rect" x="0" y="0" rel="#hangzhou" />
+    <area class="xxx" coords="446,305,481,321" href="#nanchang" shape="rect" x="0" y="0" rel="#nanchang" />
+    <area class="xxx" coords="479,311,514,327" href="#xiamen" shape="rect" x="0" y="0" rel="#xiamen" />
+    <area class="xxx" coords="425,271,460,287" href="#changsha" shape="rect" x="0" y="0" rel="#changsha" />
+    <area class="xxx" coords="374,289,409,305" href="#guiyang" shape="rect" x="0" y="0" rel="#guiyang" />
+    <area class="xxx" coords="400,381,437,397" href="#haikou" shape="rect" x="0" y="0" rel="#haikou" />
+    <area class="xxx" coords="432,337,467,353" href="#guangdong" shape="rect" x="0" y="0" rel="#guangdong" />
+    <area class="xxx" coords="332,262,367,278" href="#chengdu" shape="rect" x="0" y="0" rel="#chengdu" />
+    <area class="xxx" coords="318,324,353,340" href="#kunming" shape="rect" x="0" y="0" rel="#kunming" />
+    <area class="xxx" coords="389,315,424,331" href="#nanning" shape="rect" x="0" y="0" rel="#nanning" />
+    </map>
+
+
+    <script type="text/template" id="temp-test">
+        <div class="default">        
+            <div class="itour-tip-arrow">
+            </div>
+            <div class="tip-wrapper">
+                <div class="tip-body">
+                    <div class="tip-content">
+                        @data
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</body>
+</html>
